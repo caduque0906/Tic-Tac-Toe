@@ -82,7 +82,7 @@ function checkWinConditions() {
     else if (arrayIncludes('0O', '3O', '6O')) { drawWinLine(100, 50, 100, 558)}
     else if (arrayIncludes('1O', '4O', '7O')) { drawWinLine(304, 50, 304, 558)}
     else if (arrayIncludes('2O', '5O', '8O')) { drawWinLine(508, 50, 508, 558)}
-    else if (arrayIncludes('6O', '4O', '2O')) { drawWinLine(100, 508, 510, 558)}
+    else if (arrayIncludes('6O', '4O', '2O')) { drawWinLine(100, 508, 510, 90)}
     else if (arrayIncludes('0O', '4O', '8O')) { drawWinLine(100, 100, 520, 520)}
     //This condition checks for a tie. If none of the above coniditions are met and 9 squares are selected the code executes.
     else if (selectedSquares.length >= 9) {
@@ -127,12 +127,18 @@ function drawWinLine(coordX1, coordY1, coordX2, coordY2) {
         c.beginPath();
         c.moveTo(x1,y1);
         c.lineTo(x,y);
+        c.lineWidth = 10;
         c.strokeStyle = 'rgba(70, 255, 33, .8)';
         c.stroke();
         if (x1 <= x2 && y1 <= y2) {
             if (x < x2) { x += 10; }
             if (y < y2) { y += 10; }
-            if (x <= x2 && y <= y2) { cancelAnimationFrame(animationLoop);}
+            if (x >= x2 && y >= y2) { cancelAnimationFrame(animationLoop);}
+        }
+        if (x1 <= x2 && y1 >= y2) {
+            if (x < x2) { x += 10; }
+            if (y > y2) { y -= 10; }
+            if (x >= x2 && y <= y2) { cancelAnimationFrame(animationLoop);}
         }
     }
     function clear() {
